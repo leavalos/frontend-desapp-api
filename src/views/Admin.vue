@@ -18,7 +18,7 @@
                   />
                 </div>
                 <div class="name">
-                  <h3 class="title">{{"Admin"}}</h3>
+                  <h3 class="title">{{`·"Admin"·` }}</h3>
                 </div>
                 
                 <div class="page-container md-layout-row">
