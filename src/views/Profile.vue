@@ -122,7 +122,6 @@
 import { Tabs } from "@/components";
 import axios from "axios";
 import { Pagination } from "@/components";
-
 export default {
   components: {
     Pagination
@@ -167,9 +166,7 @@ export default {
             0,
             8
           );
-
           const pagesTotal = donations.length;
-
           vueInstance.$set(vueInstance, "donations", donations);
           vueInstance.$set(vueInstance, "totalPages", Math.round(pagesTotal));
         })
@@ -205,24 +202,20 @@ export default {
 .section {
   padding: 0;
 }
-
 .color-section {
   background-color: #456a85 !important;
   padding: 45px;
 }
-
 .parent {
   padding: 20px;
   justify-content: center;
   margin-block-end: 20px;
 }
-
 .child {
   //padding: 100px;
   background-color: white;
   text-align: left;
 }
-
 .mid-child {
   border-left: 2px solid #000;
   border-right: 2px solid #000;
@@ -231,11 +224,9 @@ export default {
   .md-card-tabs .md-list {
     justify-content: center;
   }
-
   [class*="tab-pane-"] {
     margin-top: 3.213rem;
     padding-bottom: 50px;
-
     img {
       margin-bottom: 2.142rem;
     }

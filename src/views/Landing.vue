@@ -157,26 +157,6 @@ export default {
     town1: {
       type: String,
       default: require("@/assets/projects/1.jpg")
-    },
-    town2: {
-      type: String,
-      default: require("@/assets/projects/2.jpg")
-    },
-    town3: {
-      type: String,
-      default: require("@/assets/projects/3.jpg")
-    },
-    town4: {
-      type: String,
-      default: require("@/assets/projects/4.jpg")
-    },
-    town5: {
-      type: String,
-      default: require("@/assets/projects/5.jpg")
-    },
-    town6: {
-      type: String,
-      default: require("@/assets/projects/6.jpg")
     }
   },
   components: {
