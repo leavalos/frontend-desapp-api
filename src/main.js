@@ -6,17 +6,16 @@ import router from "./router";
 import VueI18n from 'vue-i18n';
 
 import MaterialKit from "./plugins/material-kit";
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import Paginate from 'vuejs-paginate'
 
-Vue.use(BootstrapVue)
+
 Vue.use(VueI18n);
-Vue.use(IconsPlugin)
+
 Vue.config.productionTip = false;
 
 Vue.use(MaterialKit);
-Vue.use(BootstrapVue);
-Vue.use(IconsPlugin);
+
+
 Vue.use('paginate', Paginate)
 
 const NavbarStore = {
