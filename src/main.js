@@ -1,13 +1,11 @@
-
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 
-import VueI18n from 'vue-i18n';
+import VueI18n from "vue-i18n";
 
 import MaterialKit from "./plugins/material-kit";
-import Paginate from 'vuejs-paginate'
-
+import Paginate from "vuejs-paginate";
 
 Vue.use(VueI18n);
 
@@ -15,21 +13,19 @@ Vue.config.productionTip = false;
 
 Vue.use(MaterialKit);
 
-
-Vue.use('paginate', Paginate)
+Vue.use("paginate", Paginate);
 
 const NavbarStore = {
   showNavbar: false
 };
-
 
 const messages = {
   Es: {
     navbar: "Idioma",
     logout: {
       buttom: "Cerrar sesion",
-      tooltip: "Saldras de tu sesion",
-    }, 
+      tooltip: "Saldras de tu sesion"
+    },
     number: "{number},00",
     loggin: {
       loggin: "Ingresar",
@@ -48,10 +44,12 @@ const messages = {
     },
     landing: {
       header: "Ayudanos a ayudar a los demas!",
-      subheader: "Mira como tu donacion convierte a un pequeño puebloparte de la sociedad actual",
+      subheader:
+        "Mira como tu donacion convierte a un pequeño puebloparte de la sociedad actual",
       headerbutton: "Mira las dificultades de algunas de estas personas",
       contenttitle: "Conoce nuestros proyectos",
-      content: "Estos son algunos de los proyectos que tenemos actualmente. Ingresa y dona para poder ayudar a un pueblo a llegar a la meta de conseguir conectividad para todos sus habitantes. Se parte del cambio.",
+      content:
+        "Estos son algunos de los proyectos que tenemos actualmente. Ingresa y dona para poder ayudar a un pueblo a llegar a la meta de conseguir conectividad para todos sus habitantes. Se parte del cambio.",
       donate: "Donar",
       date: "finaliza:",
       collected: "Recaudado",
@@ -62,10 +60,10 @@ const messages = {
         error: "Este es un campo obligatorio",
         close: "Cerrar",
         session: "Debes tener una sesision abierta para donar"
-      }, 
+      },
       filter: {
-        current : "Ver solo proyectos proximos a terminar" ,
-        all: "Ver todos los proyectos" 
+        current: "Ver solo proyectos proximos a terminar",
+        all: "Ver todos los proyectos"
       }
     },
     profile: {
@@ -76,16 +74,16 @@ const messages = {
     },
     admin: {
       addProject: {
-                    label: "Crear proyecto",
-                    notification: "El proyecto se ha creado exisitosamente!"
-                  },
+        label: "Crear proyecto",
+        notification: "El proyecto se ha creado exisitosamente!"
+      },
       closeProject: "Cerrar proyecto",
       editProject: "Editar proyecto",
       sendEmail: "Enviar correo",
       placeHolder: "Elige una accion",
       addProjectComponent: {
         name: "Nombre del proyecto",
-        location: "Localidad", 
+        location: "Localidad",
         money: "Factor dinero",
         porcentage: "Porcentage minimo de dinero",
         date: "Elige una fecha de fin",
@@ -102,7 +100,6 @@ const messages = {
             early: "Fecha de fin debe ser luego del dia de hoy"
           }
         }
-  
       },
       closeProjectComponent: {
         header: {
@@ -120,16 +117,15 @@ const messages = {
       },
       denied: "Acceso denegado",
       close: "El projecto ha sido cerrado",
-      create: "El proyecto ha sido creado exitosamente!"  
+      create: "El proyecto ha sido creado exitosamente!"
     }
-
   },
   En: {
     navbar: "Languages",
     logout: {
       buttom: "log out",
-      tooltip: "You will be log out",
-    }, 
+      tooltip: "You will be log out"
+    },
     number: "{number}.00",
     loggin: {
       loggin: "Log in",
@@ -148,10 +144,12 @@ const messages = {
     },
     landing: {
       header: "Help us to help others!",
-      subheader: "See how your donation makes a small town part of today's society",
+      subheader:
+        "See how your donation makes a small town part of today's society",
       headerbutton: "Look at the difficulties of some of these people",
       contenttitle: "See our projects",
-      content: "These are some of the projects we currently have. Enter and donate to help a town reach the goal no getting connectivity for all its inhabitants. Be part of the change.",
+      content:
+        "These are some of the projects we currently have. Enter and donate to help a town reach the goal no getting connectivity for all its inhabitants. Be part of the change.",
       donate: "Donate",
       date: "Ends:",
       collected: "Collected",
@@ -164,8 +162,8 @@ const messages = {
         session: "You must have an open session to donate"
       },
       filter: {
-        current : "Show only ending projects" ,
-        all: "Show all open projects" 
+        current: "Show only ending projects",
+        all: "Show all open projects"
       }
     },
     profile: {
@@ -185,7 +183,7 @@ const messages = {
       placeHolder: "Choose some action",
       addProjectComponent: {
         name: "Project name",
-        location: "Location", 
+        location: "Location",
         money: "Money factor",
         porcentage: "Money minium porcentage",
         date: "Select date",
@@ -202,7 +200,6 @@ const messages = {
             early: "Date need to be later than today"
           }
         }
-  
       },
       closeProjectComponent: {
         header: {
@@ -220,24 +217,20 @@ const messages = {
       },
       denied: "Access denied",
       close: "Project has been closed",
-      create: "Project has been created succesfully!" 
-    },
-   
+      create: "Project has been created succesfully!"
+    }
   }
 };
 
 const i18n = new VueI18n({
-  locale: 'Es',
+  locale: "Es",
   messages
 });
-
-
-
 
 Vue.mixin({
   data() {
     return {
-      NavbarStore,
+      NavbarStore
     };
   }
 });
@@ -245,5 +238,5 @@ Vue.mixin({
 new Vue({
   router,
   i18n,
-  render: h => h(App),
+  render: h => h(App)
 }).$mount("#app");

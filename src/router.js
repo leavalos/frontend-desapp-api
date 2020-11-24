@@ -56,7 +56,7 @@ export default new Router({
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: "black" }
       }
-    },
+    }
   ],
   scrollBehavior: to => {
     if (to.hash) {
