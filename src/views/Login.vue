@@ -68,7 +68,7 @@
               <md-field class="md-form-group" slot="inputs" :class="{'md-valid': !errorPass, 'md-valid md-invalid': !!errorPass}" style="padding-top: 15px;">
                 <md-icon>lock_outline</md-icon>
                 <label for="password" ><span style="color: black;">{{ $t('loggin.password') }}</span></label>
-                <md-input name="password" v-model="password" :required="true" @change="validPassword"></md-input>
+                <md-input name="password" v-model="password" :required="true" @change="validPassword" type="password"></md-input>
                 <span class="md-error">{{ $t('landing.modal.error') }}</span>
               </md-field>
 
@@ -79,10 +79,10 @@
                 {{ $t('loggin.loggin') }}
               </md-button>
               <md-button v-if="(errorEmail || errorPass || error) || (!password && !email && !nickname)" slot="footer" class="md-simple md-success md-lg" @click="createUser" disabled v-show="registered">
-                Register
+                {{ $t('loggin.register') }}
               </md-button>
               <md-button v-else slot="footer" class="md-simple md-success md-lg" @click="createUser" v-show="registered">
-                Register
+                {{ $t('loggin.register') }}
               </md-button>
               <p slot="description" class="description"><b>{{registered? $t('loggin.newUser'): $t('loggin.register')}}</b> <span @click="registered = !registered">{{$t('loggin.click')}}</span></p>
             </login-card>
@@ -160,17 +160,18 @@ export default {
         
          axios.get('http://localhost:8080/login?mail='+response.email+'&&password=Aa'+response.id)
         .then((responseUser)=> {
-     
+          console.log(responseUser)
+
           if (responseUser.status == 200) {
             responseUser.data.facebook = true
             localStorage.setItem('user', JSON.stringify(responseUser.data))
             this.$router.push('/')
           }
           else {
-            alert('No existe usuario')
+            alert(this.$t('loggin.error.user'))
           }
           
-         }).catch((error) => console.log(error)) 
+         }).catch((error) => alert(this.$t('loggin.error.user')) )
     },
     createUserCallBack(response) {
 
@@ -191,12 +192,12 @@ export default {
         })
         .then((responseUser)=> {
           if(responseUser.status == 201) {
-            alert("user register")
+            alert(this.$t('loggin.error.register'))
             
             this.logginCallback(response)
           }
           else {
-            alert("error user register")
+            alert(this.$t('loggin.error.errorRegister'))
           }
          }).catch((err) => console.log(err))
     },
@@ -219,12 +220,12 @@ export default {
         })
         .then((response)=> {
           if(response.status == 201) {
-            alert("user register")
+            alert(this.$t('loggin.error.register'))
 
             this.loggin()
           }
           else {
-            alert("error user register")
+            alert(this.$t('loggin.error.errorRegister'))
           }
           
          }) 
@@ -261,23 +262,28 @@ export default {
 
         axios.get('http://localhost:8080/login?mail='+this.email+'&&password='+this.password)
         .then((response)=> {
-     
-          if (response.status == 200) {
+          if (response.data.password == this.password) {
+              if (response.status == 200) {
 
 
-            response.data.facebook = false
-            localStorage.setItem('user', JSON.stringify(response.data))
-            if (response.data.mail == "root@gmail.com"){
-              this.$router.push('/admin')
-            }
-            else{
-              this.$router.push('/')
-            }
-              
+                response.data.facebook = false
+                localStorage.setItem('user', JSON.stringify(response.data))
+                if (response.data.mail == "root@gmail.com"){
+                  this.$router.push('/admin')
+                }
+                else{
+                  this.$router.push('/')
+                }
+                  
+              }
+              else {
+                alert(this.$t('loggin.error.user'))
+              }
           }
           else {
-            alert('No existe usuario')
+            alert(this.$t('loggin.error.password'))
           }
+          
           
          }) 
     },

@@ -46,22 +46,22 @@
         <md-list>
                             <md-list-item @click="create">
                                 <md-icon>add_circle</md-icon>
-                                <h5 class="md-list-item-text">Create project</h5>
+                                <h5 class="md-list-item-text">{{$t('admin.addProject.label')}}</h5>
                             </md-list-item>
 
                             <md-list-item @click="close">
                                 <md-icon>transit_enterexit</md-icon>
-                                <h5 class="md-list-item-text">Close project</h5>
+                                <h5 class="md-list-item-text">{{$t('admin.closeProject')}}</h5>
                             </md-list-item>
 
                             <md-list-item @click="edit">
                                 <md-icon>build</md-icon>
-                                <h5 class="md-list-item-text">Edit project</h5>
+                                <h5 class="md-list-item-text">{{$t('admin.editProject')}}</h5>
                             </md-list-item>
 
                             <md-list-item @click="send">
                                 <md-icon style="color: ">send</md-icon>
-                                <h5 class="md-list-item-text">Send email</h5>
+                                <h5 class="md-list-item-text">{{$t('admin.sendEmail')}}</h5>
                             </md-list-item>
                     
         
@@ -69,7 +69,7 @@
                         </md-app-drawer>
 
                         <md-app-content v-if="!(created || closed || edited || sent)">
-                            Choose some action 
+                            {{$t('admin.placeHolder')}}
                         </md-app-content>
                         <md-app-content v-else-if="created">
                                 <center>
@@ -82,21 +82,21 @@
                                         <div class="md-layout md-gutter">
                                             <div class="md-layout-item md-small-size-100">
                                             <md-field :class="['md-valid', getValidationClass('projectname')]">
-                                                <label for="project-name">Project name</label>
+                                                <label for="project-name">{{$t('admin.addProjectComponent.name')}}</label>
                                                 <md-input name="project-name" id="project-name"  v-model="form.projectname" :disabled="sending" />
-                                                <span class="md-error" v-if="!$v.form.projectname.required">Project name is required</span>
-                                                <span class="md-error" v-else-if="!$v.form.projectname.minlength">Project name too short</span>
+                                                <span class="md-error" v-if="!$v.form.projectname.required">{{$t('admin.addProjectComponent.error.name.required')}}</span>
+                                                <span class="md-error" v-else-if="!$v.form.projectname.minlength">{{$t('admin.addProjectComponent.error.name.short')}}</span>
                                             </md-field>
                                             </div>
 
                                             <div class="md-layout-item md-small-size-100">
                                             <md-field :class="['md-valid', getValidationClass('location')]">
-                                                <label for="location">Location</label>
+                                                <label for="location">{{$t('admin.addProjectComponent.location')}}</label>
                                                 <md-select name="location" id="location" v-model="form.location" md-dense :disabled="sending">
                                                     <md-option></md-option>
                                                     <md-option style="padding-left: 5%;" v-for="(location, index) in locations" :value="location.id" :key="index" >{{location.name}}</md-option>
                                                 </md-select>
-                                                <span class="md-error">Location is required</span>
+                                                <span class="md-error">{{$t('admin.addProjectComponent.error.location')}}</span>
                                             </md-field>
                                             </div>
                                          
@@ -107,17 +107,17 @@
 
                                             <div class="md-layout-item md-small-size-100">
                                             <md-field :class="['md-valid', getValidationClass('moneyfactor')]">
-                                                <label for="moneyfactor">Money factor</label>
+                                                <label for="moneyfactor">{{$t('admin.addProjectComponent.money')}}</label>
                                                 <md-input type="number" id="moneyfactor" name="moneyfactor"  v-model="form.moneyfactor" :disabled="sending" />
-                                                <span class="md-error" v-if="!$v.form.moneyfactor.maxlength">Money factor exceded</span>
+                                                <span class="md-error" v-if="!$v.form.moneyfactor.maxlength">{{$t('admin.addProjectComponent.error.money')}}</span>
                                             </md-field>
                                             </div>
 
                                             <div class="md-layout-item md-small-size-100">
                                             <md-field :class="['md-valid', getValidationClass('moneyporcentage')]">
-                                                <label for="moneyporcentage">Money minium porcentage</label>
+                                                <label for="moneyporcentage">{{$t('admin.addProjectComponent.porcentage')}}</label>
                                                 <md-input type="number" id="moneyporcentage" name="moneyporcentage"  v-model="form.moneyporcentage" :disabled="sending" />
-                                                <span class="md-error" v-if="!$v.form.moneyporcentage.maxlength">Money porcentage exceded</span>
+                                                <span class="md-error" v-if="!$v.form.moneyporcentage.isLessThan100">{{$t('admin.addProjectComponent.error.percentage')}}</span>
                                             </md-field>
                                             </div>
                                         </div> 
@@ -125,9 +125,9 @@
                                         <div class="md-layout md-gutter md-valid" style="padding-top: 5%">
                                             <div>
                                                 <md-datepicker  vmd-model-type="String" :class="['md-valid', getValidationClass('selectedDate')]" v-model="form.selectedDate">
-                                                    <label class="md-valid">Select date</label>
-                                                    <span class="md-error" v-if="!$v.form.selectedDate.required">Date field is required</span>
-                                                    <span class="md-error" v-else-if="!$v.form.selectedDate.isLaterThanToday">Date need to be later than today</span>
+                                                    <label class="md-valid">{{$t('admin.addProjectComponent.date')}}</label>
+                                                    <span class="md-error" v-if="!$v.form.selectedDate.required">{{$t('admin.addProjectComponent.error.date.required')}}</span>
+                                                    <span class="md-error" v-else-if="!$v.form.selectedDate.isLaterThanToday">{{$t('admin.addProjectComponent.error.date.early')}}</span>
                                                     
                                                 </md-datepicker>
                                             </div>
@@ -138,17 +138,17 @@
                                        
 
                                         <md-card-actions>
-                                            <md-button type="submit" class="md-success" :disabled="sending">Create project</md-button>
+                                            <md-button type="submit" class="md-success" :disabled="sending">{{$t('admin.addProject.label')}}</md-button>
                                         </md-card-actions>
                                     </md-card>
 
-                                    <md-snackbar :md-active.sync="projectSaved">The project was saved with success!</md-snackbar>
+                                    <md-snackbar :md-active.sync="projectSaved">{{$t('admin.addProject.notification')}}</md-snackbar>
                                     </form>
                                 </div>
                                 </center>
                     </md-app-content>
                     <md-app-content v-else-if="sent || edited" >
-                        Not implemented yet!
+                        {{$t('admin.closeProjectComponent.notification.multiple')}}
                     </md-app-content>
                     <md-app-content v-else style="padding-right: 5%;">
 
@@ -166,11 +166,11 @@
                             </md-table-toolbar>
 
                             <md-table-row slot="md-table-row" slot-scope="{ item }" :md-disabled="item.name.includes('Stave')" md-selectable="multiple" md-auto-select>
-                                <md-table-cell md-label="Name" md-sort-by="name" >{{ item.name }}</md-table-cell>
-                                <md-table-cell md-label="Raised money" md-sort-by="Raised money">{{  $t('number', { number:  calculateMoneyRaised(item.donations)})   }}</md-table-cell>
-                                <md-table-cell md-label="Start date" md-sort-by="Start date">{{ new Date(item.beginningDate ).toLocaleDateString($i18n.locale.toLowerCase()) }}</md-table-cell>
-                                <md-table-cell md-label="Finish date" md-sort-by="Finish date">{{ new Date(item.finishDate ).toLocaleDateString($i18n.locale.toLowerCase()) }}</md-table-cell>
-                                <md-table-cell md-label="Goal accomplished" md-sort-by="Goal accomplished" >{{ isRaisedMoney(item.moneyFactor, item.population, calculateMoneyRaised(item.donations) )? "Yes" : "No" }}</md-table-cell>
+                                <md-table-cell :md-label="$t('admin.closeProjectComponent.header.name')" :md-sort-by="$t('admin.closeProjectComponent.header.name')" >{{ item.name }}</md-table-cell>
+                                <md-table-cell :md-label="$t('admin.closeProjectComponent.header.money')" :md-sort-by="$t('admin.closeProjectComponent.header.money')">{{  $t('number', { number:  calculateMoneyRaised(item.donations)})   }}</md-table-cell>
+                                <md-table-cell :md-label="$t('admin.closeProjectComponent.header.start')" :md-sort-by="$t('admin.closeProjectComponent.header.start')">{{ new Date(item.beginningDate ).toLocaleDateString($i18n.locale.toLowerCase()) }}</md-table-cell>
+                                <md-table-cell :md-label="$t('admin.closeProjectComponent.header.finish')" :md-sort-by="$t('admin.closeProjectComponent.header.finish')">{{ new Date(item.finishDate ).toLocaleDateString($i18n.locale.toLowerCase()) }}</md-table-cell>
+                                <md-table-cell :md-label="$t('admin.closeProjectComponent.header.goal')" :md-sort-by="$t('admin.closeProjectComponent.header.goal')" >{{ isRaisedMoney(item.moneyFactor, item.population, calculateMoneyRaised(item.donations) )? $t('admin.closeProjectComponent.goal') : "No" }}</md-table-cell>
                             </md-table-row>
                             </md-table>
                         </center>
@@ -247,7 +247,10 @@ export default {
         },
         moneyporcentage: {
           isLessThan100(value) {
-              return value > 0 && value <= 100
+            if (value) {
+              return value <= 100
+            }
+            return true
           }
         },
         selectedDate: {
@@ -284,10 +287,10 @@ export default {
       },
       closeProjects() {
           if (this.selected.length > 1 ){
-              alert("Feature not supported yet!")
+              alert(this.$t('admin.closeProjectComponent.notification.multiple'))
           }
           else if (this.selected.length == 0 ) {
-            alert("No project selected!")
+            alert(this.$t('admin.closeProjectComponent.notification.noSelected'))
           }
           else {
               this.closeProject(this.selected[0].id)
@@ -298,7 +301,7 @@ export default {
         .then((response) =>{
         
         
-         alert("Project has been closed")
+         alert(this.$t('admin.close'))
          this.selected = []
          this.closed = false
           this.edited = false
@@ -426,7 +429,7 @@ export default {
                       this.toggleMenu()
                       this.sending = false
                       this.created = false
-                      alert("Project was created succesfully!")
+                      alert(this.$t('admin.create'))
                       })
                   .catch((err) => console.log(err))
       },
@@ -460,7 +463,7 @@ export default {
         
     }    
     else {
-        alert('Access denied')
+        alert(this.$t('admin.denied'))
         this.$router.push('/auth')
     }
     

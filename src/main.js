@@ -38,7 +38,13 @@ const messages = {
       click: "haz click aqui",
       nickname: "Apodo",
       email: "Correo electronico",
-      password: "Contraseña"
+      password: "Contraseña",
+      error: {
+        password: "La contraseña provista es incorrecta",
+        user: "Usuario no encontrado",
+        register: "Usuario registrado",
+        errorRegister: "No se ha podido registrar a usuario"
+      }
     },
     landing: {
       header: "Ayudanos a ayudar a los demas!",
@@ -67,6 +73,54 @@ const messages = {
       points: "Puntos acumulados",
       projects: "Proyectos contribuidos",
       profile: "Perfil"
+    },
+    admin: {
+      addProject: {
+                    label: "Crear proyecto",
+                    notification: "El proyecto se ha creado exisitosamente!"
+                  },
+      closeProject: "Cerrar proyecto",
+      editProject: "Editar proyecto",
+      sendEmail: "Enviar correo",
+      placeHolder: "Elige una accion",
+      addProjectComponent: {
+        name: "Nombre del proyecto",
+        location: "Localidad", 
+        money: "Factor dinero",
+        porcentage: "Porcentage minimo de dinero",
+        date: "Elige una fecha de fin",
+        error: {
+          name: {
+            required: "Nombre de proyecto es requerido",
+            short: "Nombre de proyecto es muy corto"
+          },
+          location: "Localidad es requerido",
+          money: "Factor de dinero muy alto",
+          percentage: "Porcentage de dinero debe ser debajo del 100%",
+          date: {
+            required: "Fecha de fin es requerida",
+            early: "Fecha de fin debe ser luego del dia de hoy"
+          }
+        }
+  
+      },
+      closeProjectComponent: {
+        header: {
+          name: "Nombre",
+          money: "Dinero recaudado",
+          start: "Fecha de inicio",
+          finish: "Fecha de fin",
+          goal: "Meta cumplida"
+        },
+        goal: "Si",
+        notification: {
+          noSelected: "No se ha seleccionado proyecto",
+          multiple: "Esta funcion aun ha sido implementada!"
+        }
+      },
+      denied: "Acceso denegado",
+      close: "El projecto ha sido cerrado",
+      create: "El proyecto ha sido creado exitosamente!"  
     }
 
   },
@@ -84,7 +138,13 @@ const messages = {
       click: "click here",
       nickname: "Nickname",
       email: "Email",
-      password: "Password"
+      password: "Password",
+      error: {
+        password: "Incorrect password",
+        user: "User not found",
+        register: "Usuar registered",
+        errorRegister: "User not registered"
+      }
     },
     landing: {
       header: "Help us to help others!",
@@ -113,8 +173,56 @@ const messages = {
       points: "Accumulated points",
       projects: "Projects contributed",
       profile: "Account"
-    }
-
+    },
+    admin: {
+      addProject: {
+        label: "Create project",
+        notification: "The project was saved succesfully!"
+      },
+      closeProject: "Close project",
+      editProject: "Edit project",
+      sendEmail: "Send email",
+      placeHolder: "Choose some action",
+      addProjectComponent: {
+        name: "Project name",
+        location: "Location", 
+        money: "Money factor",
+        porcentage: "Money minium porcentage",
+        date: "Select date",
+        error: {
+          name: {
+            required: "Project name is required",
+            short: "Project name too short"
+          },
+          location: "Location is required",
+          money: "Money factor exceded",
+          percentage: "Money porcentage has to be lower than 100%",
+          date: {
+            required: "Date field is required",
+            early: "Date need to be later than today"
+          }
+        }
+  
+      },
+      closeProjectComponent: {
+        header: {
+          name: "Name",
+          money: "Raised money",
+          start: "Start date",
+          finish: "Finish date",
+          goal: "Goal accomplished"
+        },
+        goal: "Yes",
+        notification: {
+          noSelected: "No project selected",
+          multiple: "Feature not supported yet!"
+        }
+      },
+      denied: "Access denied",
+      close: "Project has been closed",
+      create: "Project has been created succesfully!" 
+    },
+   
   }
 };
 
