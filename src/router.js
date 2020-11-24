@@ -4,7 +4,7 @@ import Index from "./views/Index.vue";
 import Landing from "./views/Landing.vue";
 import Login from "./views/Login.vue";
 import Profile from "./views/Profile.vue";
-import Donation from "./views/Donation.vue";
+import Admin from "./views/Admin.vue";
 import MainNavbar from "./layout/MainNavbar.vue";
 import MainFooter from "./layout/MainFooter.vue";
 
@@ -49,14 +49,14 @@ export default new Router({
       }
     },
     {
-      path: "/donation",
-      name: "donation",
-      components: { default: Donation, header: MainNavbar, footer: MainFooter },
+      path: "/admin",
+      name: "admin",
+      components: { default: Admin, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: "black" }
       }
-    }
+    },
   ],
   scrollBehavior: to => {
     if (to.hash) {

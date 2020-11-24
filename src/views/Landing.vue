@@ -33,33 +33,37 @@
                 {{ $t('landing.content') }}
               </h5>
             </div>
+            <md-button class="md-success" style="height: 50%"  @click="toogleProjects">{{ allProjects? $t('landing.filter.current') : $t('landing.filter.all')}}</md-button>
           </div>
         </div>
       </div>
-  
+      
+      
       <div class="section text-center">
         <div class="container">
           <div class="team">
-            <div class="md-layout" v-for="(projectRow,index) in projects" :key="index">
-              <div class="md-layout-item md-medium-size-33 md-small-size-100" v-for="(projectRowSub,index) in projectRow" :key="index">
+
+            <div class="md-layout" v-for="(projectRow,index) in projects[colorPagination - 1]" :key="index">
+              <div class="md-layout-item md-medium-size-33 md-small-size-100" v-for="(projectRowSub,index) in projectRow" :key="index" >
                 <div class="team-player">
                   <md-card class="md-card-plain">
                     <div class="md-layout-item md-size-100 mx-auto">
                       <img
-                        :src="header"
+                        :src="town1"
                         alt="Thumbnail Image"
                         class="img-raised img-fluid"
+                        style="height: 155px; width: 255px;"
                       />
                     </div>
                     <h4 class="card-title">
                       {{projectRowSub.name}}
                       <br />
-                      <small class="card-description text-muted">{{"Aca podemos meter el nombre de la localidad"}}</small>
+                      <small class="card-description text-muted"></small>
                     </h4>
 
                     <md-card-content>
                       <p class="card-description">
-                        {{"Aca tambien podemos agregar una descripcion al proyecto."}}
+                        {{"Se parte del cambio y ayuda a este localidad. El proyecto de "+projectRowSub.name}}
                         <b>{{ $t('landing.date') }} {{new Date(projectRowSub.finishDate).toLocaleDateString()}}</b>
                       </p>
                       <div class="md-layout">
@@ -75,54 +79,22 @@
                       </div>
                     </md-card-content>
 
-                    <md-card-content>
-                      
-                        <div class="md-layout-item md-size-100 mx-auto text-center">
-                          <template>
-                            <md-button class="md-success md-round classic-modal" @click="classicModal = true">{{ $t('landing.donate') }}</md-button>
-                            <modal v-if="classicModal" @close="classicModalHide">
-                            <template slot="header">
-                              <h4 class="modal-title">{{projectRowSub.name}}</h4>
-                              <md-button
-                                class="md-simple md-just-icon md-round modal-default-button"
-                                @click="classicModalHide"
-                              >
-                                <md-icon>clear</md-icon>
-                              </md-button>
-                            </template>
-
-                            <template slot="body">
-                              <md-field class="md-success">
-                              <label>{{ $t('landing.modal.comment') }}</label>
-                              <md-textarea v-model="comment"></md-textarea>
-                            </md-field>
-
-                            <md-field  :class="{'md-valid': !error, 'md-valid md-invalid': !!error}" >
-                              <md-icon >warning</md-icon>
-                              <label>{{ $t('landing.modal.donation') }}</label>
-                              <md-input type="number" v-model="money" :required="true" @change="validInput"></md-input>
-                              <md-icon>attach_money</md-icon>
-                              <span class="md-error">{{ $t('landing.modal.error') }}</span>
-                            </md-field>
-                            </template>
-
-                            <template slot="footer">
-                              <md-button class="md-simple" @click="donate(projectRowSub.name)">{{ $t('landing.modal.donate') }}</md-button>
-                              <md-button
-                                class="md-danger md-simple"
-                                @click="classicModalHide"
-                                >{{ $t('landing.modal.close') }}</md-button
-                              >
-                            </template>
-                          </modal>
-                          </template>
-                        </div>
-                    
+                    <md-card-content >
+                      <DialogCustom :projectName="projectRowSub.name" @donate="donate" />
                     </md-card-content>
                   </md-card>
                 </div>
               </div>
+              
             </div>
+              <center>
+                <pagination
+                  type="success"
+                  v-model="colorPagination"
+                  :page-count="totalPages"
+                  @input="nextSection">
+                </pagination>
+              </center>
           </div>
         </div>
       </div>
@@ -133,6 +105,10 @@
 <script>
 import axios from 'axios'
 import {Modal} from '@/components'
+import DialogCustom from './ModalDonate.vue'
+import {Pagination} from '@/components'
+
+
 
 export default {
   
@@ -142,32 +118,46 @@ export default {
       type: String,
       default: require("@/assets/img/GG-PZzjT2kzo.jpg")
     },
-    teamImg1: {
+    town1: {
       type: String,
-      default: require("@/assets/img/faces/avatar.jpg")
+      default: require("@/assets/projects/1.jpg")
     },
-    teamImg2: {
+    town2: {
       type: String,
-      default: require("@/assets/img/faces/christian.jpg")
+      default: require("@/assets/projects/2.jpg")
     },
-    teamImg3: {
+    town3: {
       type: String,
-      default: require("@/assets/img/faces/kendall.jpg")
-    }
+      default: require("@/assets/projects/3.jpg")
+    },
+    town4: {
+      type: String,
+      default: require("@/assets/projects/4.jpg")
+    },
+    town5: {
+      type: String,
+      default: require("@/assets/projects/5.jpg")
+    },
+    town6: {
+      type: String,
+      default: require("@/assets/projects/6.jpg")
+    },
   },
   components: {
-    Modal,
+    Pagination,
+    DialogCustom,
   },
   data() {
     return {
-      name: null,
-      email: null,
-      message: null,
       projects: [],
       classicModal: false,
       comment: null,
       money: 0,
-      error: false
+      error: false,
+      showDialog: false,
+      colorPagination: 1,
+      totalPages: null,
+      allProjects: true
     };
   },
   computed: {
@@ -175,20 +165,37 @@ export default {
       return {
         backgroundImage: `url(${this.header})`
       };
-    }
+    },
   },
    methods: {
-    load: (vueInstance) =>  {
+    nextSection(page){
+      console.log(page)
+    },
+    getRandomArbitrary(min, max) {
+      return Math.floor(Math.random() * (max - min)) + min
+    },
+    load: (vueInstance, url) =>  {
 
      
-      axios.get('http://localhost:8080/openProjects/')
+      axios.get(url)
       .then((response) =>{
-        console.log(response.data)
-        vueInstance.$set(vueInstance,"projects", vueInstance.reorderList(response.data))
+        
+        
+        let projects = vueInstance.reorderList(response.data, 0, 8)
+        const pagesTotal = projects.length
+        projects = projects.map( (subProject) => {
+          
+            return vueInstance.reorderList(subProject)
+          })
+        
+        vueInstance.$set(vueInstance,"projects", projects)
+        vueInstance.$set(vueInstance,"totalPages", Math.round(pagesTotal))
       })
       .catch((err) => console.log(err))
     },
     calculateMoneyRaised: (donations, total) => {
+
+      
       if (donations.length == 0 ){
         return 0
       }
@@ -207,33 +214,12 @@ export default {
       this.money = 0
       this.error= false
     },
-    donate(projectName){
-      
-      if (this.money == 0) {
-        this.error = true 
+    donate(){
+      if(this.allProjects) {
+        this.load(this, 'http://localhost:8080/openProjects/')
       }
       else {
-        this.error = false
-        let money_to_send = new Number(this.money)
-        let body_to_send = {
-                              'money': money_to_send.toFixed(2),
-                              'comment': this.comment,
-                              'nickname': "Leavalos123",
-                              'date': new Date().toISOString(),
-                              'projectName': projectName
-                            }
-        
-        fetch('http://localhost:8080/donation', {
-                    method: 'post',
-                    body: JSON.stringify(body_to_send),
-                    headers: {
-                    'Content-Type': 'application/json'
-                    },
-        })
-        .then(()=> {
-          this.classicModalHide()
-         })
-    
+        this.load(this, 'http://localhost:8080/openMonthProjects/')
       }
     },
     validInput() {
@@ -246,14 +232,29 @@ export default {
         return mainList
       }
       else {
-        const res_list = this.reorderList(mainList.slice(end, mainList.length))
+        const res_list = this.reorderList(mainList.slice(end, mainList.length),  start, end)
         return [mainList.slice(start, end)].concat(res_list)
       }
+    },
+    toogleProjects() {
+        this.colorPagination = 1
+
+        if (this.allProjects) {
+          this.load(this, 'http://localhost:8080/openMonthProjects/')
+        }
+        else {
+          this.load(this, 'http://localhost:8080/openProjects/')
+        }
+        this.allProjects = !this.allProjects
+        
+        
     }
   },
   created() {
-    this.load(this)
-  }
+    this.load(this, 'http://localhost:8080/openProjects/')
+    console.log(this)
+  },
+  
 };
 </script>
 
