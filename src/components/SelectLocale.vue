@@ -1,11 +1,7 @@
 <template>
   <div>
     <select v-model="$i18n.locale">
-      <option
-        v-for="(lang, i) in langs"
-        :key="`lang-${i}`"
-        :value="lang"
-      >
+      <option v-for="(lang, i) in langs" :key="`lang-${i}`" :value="lang">
         {{ lang }}
       </option>
     </select>
@@ -14,9 +10,9 @@
 
 <script>
 export default {
-  name: 'SelectLocale',
+  name: "SelectLocale",
   data() {
-    return { langs: ['en', 'de'] }
+    return { langs: ["en", "de"] };
   }
-}
+};
 </script>

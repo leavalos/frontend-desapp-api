@@ -1,6 +1,5 @@
 <template>
   <div class="wrapper">
-
     <div class="main main-raised">
       <div class="section">
         <div class="container">
@@ -8,16 +7,15 @@
             <div
               class="md-layout-item md-size-66 md-xsmall-size-100 mx-auto text-center"
             >
-            <hr />
+              <hr />
               <h2 class="title text-center"></h2>
-            <hr />  
+              <hr />
             </div>
           </div>
         </div>
       </div>
-  
+
       <div class="section text-center">
-        
         <md-field class="md-success">
           <label>Description</label>
           <md-textarea v-model="text"></md-textarea>
@@ -25,23 +23,21 @@
         </md-field>
 
         <md-field class="md-valid">
-          <md-icon >warning</md-icon>
+          <md-icon>warning</md-icon>
           <label>Transfer Money</label>
           <md-input v-model="money"></md-input>
           <md-icon>attach_money</md-icon>
         </md-field>
-      
-         
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 import { validationMixin } from "vuelidate";
 import { required, email } from "vuelidate/lib/validators";
-import {Modal} from '@/components'
+import { Modal } from "@/components";
 
 export default {
   mixins: [validationMixin],
@@ -71,7 +67,7 @@ export default {
       message: null,
       projects: [],
       classicModal: false,
-     formulario: {
+      formulario: {
         nombre: "",
         apellido: "",
         correo: "",
@@ -81,19 +77,19 @@ export default {
         lugarResidencia: "",
         tiempoFueraDeArgentina: 0,
         text: null,
-        money: null,
+        money: null
       },
-      botonEstado: false,
+      botonEstado: false
     };
   },
   validations: {
     formulario: {
-      nombre: {required},
-      apellido: {required},
-      correo: {required, email},
-      fechaNacimiento: {required},
-      localidad: {required},
-      provincia: {required},
+      nombre: { required },
+      apellido: { required },
+      correo: { required, email },
+      fechaNacimiento: { required },
+      localidad: { required },
+      provincia: { required }
     }
   },
   computed: {
@@ -103,27 +99,26 @@ export default {
       };
     }
   },
-   methods: {
-    load: (vueInstance) =>  {
-
-     
-      axios.get('http://localhost:8080/openProjects/')
-      .then((response) =>{
-        console.log(response.data)
-        vueInstance.$set(vueInstance,"projects", response.data)
-      })
-      .catch((err) => console.log(err))
+  methods: {
+    load: vueInstance => {
+      axios
+        .get("http://localhost:8080/openProjects/")
+        .then(response => {
+          console.log(response.data);
+          vueInstance.$set(vueInstance, "projects", response.data);
+        })
+        .catch(err => console.log(err));
     },
-    calculateMoneyRaised: (donations) => {
+    calculateMoneyRaised: donations => {
       // needs to be implemented
-      return 25
+      return 25;
     },
     classicModalHide() {
       this.classicModal = false;
     }
   },
   created() {
-    this.load(this)
+    this.load(this);
   }
 };
 </script>
@@ -161,5 +156,4 @@ p.modal-body {
 .md-field:focus {
   color: blue !important;
 }
-
 </style>

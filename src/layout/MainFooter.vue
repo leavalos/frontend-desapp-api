@@ -3,8 +3,7 @@
     class="footer"
     :class="{ [`footer-${type}`]: type }"
     :data-background-color="backgroundColor"
-  >
-  </footer>
+  ></footer>
 </template>
 <script>
 export default {

@@ -1,9 +1,6 @@
 <template>
   <md-card class="md-card-login">
-    
-    <md-card-content>
-     
-    </md-card-content>
+    <md-card-content> </md-card-content>
 
     <md-card-actions>
       <slot name="donar"></slot>
@@ -14,20 +11,12 @@
 <script>
 export default {
   name: "project-card",
-  props: {
-   
-  },
+  props: {},
   data() {
-    return {
-      
-    };
+    return {};
   },
-  beforeMount() {
-    
-  },
-  methods: {
-   
-  }
+  beforeMount() {},
+  methods: {}
 };
 </script>
 

@@ -32,7 +32,7 @@
                   href="javascript:void(0)"
                   class="md-list-item-router md-list-item-container md-button-clean dropdown"
                 >
-                  <div class="md-list-item-content" >
+                  <div class="md-list-item-content">
                     <drop-down direction="down">
                       <md-button
                         slot="title"
@@ -40,23 +40,30 @@
                         data-toggle="dropdown"
                       >
                         <i class="material-icons">language</i>
-                        <p>{{ $t('navbar') }}</p>
+                        <p>{{ $t("navbar") }}</p>
                       </md-button>
                       <ul class="dropdown-menu dropdown-with-icons">
-
-                        <li v-for="(language, index) in languages" :key="index" @click="setLangague(language)">
-                             <a>
-                            <i :class="['material-icons', language == languagesSelected ? 'reddot' : '']">fiber_manual_record</i>
-                            <p>{{language}}</p>
-                            </a>
+                        <li
+                          v-for="(language, index) in languages"
+                          :key="index"
+                          @click="setLangague(language)"
+                        >
+                          <a>
+                            <i
+                              :class="[
+                                'material-icons',
+                                language == languagesSelected ? 'reddot' : ''
+                              ]"
+                              >fiber_manual_record</i
+                            >
+                            <p>{{ language }}</p>
+                          </a>
                         </li>
-            
                       </ul>
                     </drop-down>
                   </div>
                 </a>
               </li>
-
 
               <li class="md-list-item" v-if="showLogUser">
                 <a
@@ -71,37 +78,41 @@
                         data-toggle="dropdown"
                       >
                         <i class="material-icons">account_box</i>
-                       
                       </md-button>
                       <ul class="dropdown-menu dropdown-with-icons">
-
-                        <li >
-
-                            <a @click="profile">
-                              <i class="material-icons">face</i>
-                              <p>{{ JSON.parse(storage.getItem('user')).mail }}</p>
-                              <md-tooltip  md-direction="right">{{ $t('profile.profile') }}</md-tooltip >
-                            </a>
-                            
+                        <li>
+                          <a @click="profile">
+                            <i class="material-icons">face</i>
+                            <p>
+                              {{ JSON.parse(storage.getItem("user")).mail }}
+                            </p>
+                            <md-tooltip md-direction="right">{{
+                              $t("profile.profile")
+                            }}</md-tooltip>
+                          </a>
                         </li>
 
-                        <li >
-
-                            <a @click="logout_">
-                              <i class="material-icons">power_settings_new</i>
-                              <p>{{ $t('logout.buttom') }}</p>
-                              <md-tooltip  md-direction="right">{{ $t('logout.tooltip') }}</md-tooltip >
-                            </a>
-                            
+                        <li>
+                          <a @click="logout_">
+                            <i class="material-icons">power_settings_new</i>
+                            <p>{{ $t("logout.buttom") }}</p>
+                            <md-tooltip md-direction="right">{{
+                              $t("logout.tooltip")
+                            }}</md-tooltip>
+                          </a>
                         </li>
-                     
 
-                        <li v-if="JSON.parse(storage.getItem('user')).facebook" v-show="false">
-                          <center><v-facebook-login ref="fbcomponent"
-                              app-id="1354911484850696" /></center>
+                        <li
+                          v-if="JSON.parse(storage.getItem('user')).facebook"
+                          v-show="false"
+                        >
+                          <center>
+                            <v-facebook-login
+                              ref="fbcomponent"
+                              app-id="1354911484850696"
+                            />
+                          </center>
                         </li>
-                        
-            
                       </ul>
                     </drop-down>
                   </div>
@@ -120,31 +131,19 @@
                         data-toggle="dropdown"
                       >
                         <i class="material-icons">account_box</i>
-                       
                       </md-button>
                       <ul class="dropdown-menu dropdown-with-icons">
-
-                        <li >
-
-                            <a @click="goLogin">
-                              <i class="material-icons">power_settings_new</i>
-                              <p>{{"Log in"}}</p>
-                            </a>
-                            
+                        <li>
+                          <a @click="goLogin">
+                            <i class="material-icons">power_settings_new</i>
+                            <p>{{ "Log in" }}</p>
+                          </a>
                         </li>
-
-                        
-                        
-            
                       </ul>
                     </drop-down>
                   </div>
                 </a>
               </li>
-           
-
-           
-             
             </md-list>
           </div>
         </div>
@@ -166,7 +165,7 @@ function resizeThrottler(actualResizeHandler) {
   }
 }
 import MobileMenu from "@/layout/MobileMenu";
-import VFacebookLogin from 'vue-facebook-login-component'
+import VFacebookLogin from "vue-facebook-login-component";
 export default {
   components: {
     MobileMenu,
@@ -205,32 +204,35 @@ export default {
   computed: {
     showDownload() {
       const excludedRoutes = ["login", "landing", "profile", "auth", "admin"];
-      
+
       return excludedRoutes.every(r => r !== this.$route.name);
     },
     showLogUser() {
       const excludedRoutes = ["login", "landing", "profile", "admin"];
-      return !excludedRoutes.every(r => r !== this.$route.name) && !!JSON.parse(localStorage.getItem('user'))
+      return (
+        !excludedRoutes.every(r => r !== this.$route.name) &&
+        !!JSON.parse(localStorage.getItem("user"))
+      );
     },
     auth() {
-      return this.$route.name != "auth"
+      return this.$route.name != "auth";
     }
   },
   methods: {
-    goLogin(){
-      this.$router.push('/auth')
+    goLogin() {
+      this.$router.push("/auth");
     },
     logout_(event) {
       //this.$emit('logout')
-      if(!!this.$refs.fbcomponent) {
-        this.$refs.fbcomponent.$el.click()
+      if (!!this.$refs.fbcomponent) {
+        this.$refs.fbcomponent.$el.click();
       }
-      localStorage.removeItem('user')
-      this.$router.push('/auth')
+      localStorage.removeItem("user");
+      this.$router.push("/auth");
     },
     setLangague(language) {
-      this.languagesSelected = language
-      this.$i18n.locale = language
+      this.languagesSelected = language;
+      this.$i18n.locale = language;
     },
     bodyClick() {
       let bodyClick = document.getElementById("bodyClick");
@@ -248,7 +250,7 @@ export default {
     toggleNavbarMobile() {
       this.NavbarStore.showNavbar = !this.NavbarStore.showNavbar;
       this.toggledClass = !this.toggledClass;
-      this.$set(this, 'user', JSON.parse(localStorage.getItem('user')))
+      this.$set(this, "user", JSON.parse(localStorage.getItem("user")));
       this.bodyClick();
     },
     handleScroll() {
@@ -276,17 +278,17 @@ export default {
       }
     },
     home() {
-      this.$router.push('/')
+      this.$router.push("/");
     },
     profile() {
-      let user = JSON.parse(localStorage.getItem('user'))
+      let user = JSON.parse(localStorage.getItem("user"));
       if (user.mail == "root@gmail.com") {
-           this.$router.push('/admin')
+        this.$router.push("/admin");
+      } else {
+        this.$router.push(
+          "/profile/" + JSON.parse(localStorage.getItem("user")).id
+        );
       }
-      else {
-        this.$router.push('/profile/'+JSON.parse(localStorage.getItem('user')).id)
-      }
-      
     }
   },
   mounted() {
@@ -294,11 +296,11 @@ export default {
   },
   beforeDestroy() {
     document.removeEventListener("scroll", this.scrollListener);
-  },
+  }
 };
 </script>
 <style scoped>
-  .reddot {
-    color: red;
-  }
-</style>>
+.reddot {
+  color: red;
+}</style
+>>

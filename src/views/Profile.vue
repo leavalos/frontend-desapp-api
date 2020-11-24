@@ -18,71 +18,97 @@
                   />
                 </div>
                 <div class="name">
-                  <h3 class="title">{{user.nickName}}</h3>
+                  <h3 class="title">{{ user.nickName }}</h3>
                 </div>
                 <div class="md-layout parent">
                   <div class="md-layout-item md-size-30  child">
                     <div>
                       <center>
-                        <h3>{{ $t('profile.donations') }}</h3>
-                        <b>{{user.madeDonations.length}}</b>
+                        <h3>{{ $t("profile.donations") }}</h3>
+                        <b>{{ user.madeDonations.length }}</b>
                       </center>
                     </div>
                   </div>
-                   <div class="md-layout-item md-size-30  child mid-child">
+                  <div class="md-layout-item md-size-30  child mid-child">
                     <div>
-                      <center><h3>{{ $t('profile.points') }}</h3>
-                              <b>{{user.points}}</b>
+                      <center>
+                        <h3>{{ $t("profile.points") }}</h3>
+                        <b>{{ user.points }}</b>
                       </center>
-                      
                     </div>
                   </div>
-                   <div class="md-layout-item md-size-30  child">
+                  <div class="md-layout-item md-size-30  child">
                     <div>
-                      <center><h3>{{ $t('profile.projects') }}</h3>
-                        <b>{{quantityOfProjectsContribuited(user.madeDonations)}}</b>
+                      <center>
+                        <h3>{{ $t("profile.projects") }}</h3>
+                        <b>{{
+                          quantityOfProjectsContribuited(user.madeDonations)
+                        }}</b>
                       </center>
-                      
                     </div>
                   </div>
                 </div>
 
-                <h3 style="padding-bottom: 5%"><b>{{"Donaciones hechas"}}</b></h3>
-<md-table  :mdFixedHeader="True" >  
-      <md-table-row >
-        <md-table-head md-numeric><b>#</b></md-table-head>
-        <md-table-head style="text-align: center;"><b>{{"Proyecto"}}</b></md-table-head>
-        <md-table-head style="text-align: center;"><b>{{"Monto de la donacion"}}</b></md-table-head>
-        <md-table-head ><b>{{"Fecha de la donacion  "}}</b></md-table-head>
-  
-      </md-table-row >
+                <h3 style="padding-bottom: 5%">
+                  <b>{{ "Donaciones hechas" }}</b>
+                </h3>
+                <md-table :mdFixedHeader="True">
+                  <md-table-row>
+                    <md-table-head md-numeric><b>#</b></md-table-head>
+                    <md-table-head style="text-align: center;"
+                      ><b>{{ "Proyecto" }}</b></md-table-head
+                    >
+                    <md-table-head style="text-align: center;"
+                      ><b>{{ "Monto de la donacion" }}</b></md-table-head
+                    >
+                    <md-table-head
+                      ><b>{{ "Fecha de la donacion  " }}</b></md-table-head
+                    >
+                  </md-table-row>
 
-      <md-table-row v-for="(donation, index) in donations[colorPagination - 1]" :key="index" >
-        <md-table-cell >{{indexes.indexOf(donation)}}</md-table-cell>
-        <md-table-cell >{{donation.projectName}}</md-table-cell>
-        <md-table-cell style="padding-right: 4%;">{{ $t('number', { number:  donation.money}) }}</md-table-cell>
-        <md-table-cell style="padding-left: 6%;">{{new Date(donation.date).toLocaleDateString($i18n.locale.toLowerCase())}}</md-table-cell>
-      </md-table-row>
+                  <md-table-row
+                    v-for="(donation, index) in donations[colorPagination - 1]"
+                    :key="index"
+                  >
+                    <md-table-cell>{{
+                      indexes.indexOf(donation)
+                    }}</md-table-cell>
+                    <md-table-cell>{{ donation.projectName }}</md-table-cell>
+                    <md-table-cell style="padding-right: 4%;">{{
+                      $t("number", { number: donation.money })
+                    }}</md-table-cell>
+                    <md-table-cell style="padding-left: 6%;">{{
+                      new Date(donation.date).toLocaleDateString(
+                        $i18n.locale.toLowerCase()
+                      )
+                    }}</md-table-cell>
+                  </md-table-row>
 
-      
-      <md-table-row v-for="(_, index) in new Array(8 - (donations.length == 0? 0 :donations[colorPagination - 1].length))" :key="index">
-        <md-table-cell ></md-table-cell>
-        <md-table-cell ></md-table-cell>
-        <md-table-cell ></md-table-cell>
-        <md-table-cell ></md-table-cell>
-      </md-table-row>
-      
+                  <md-table-row
+                    v-for="(_, index) in new Array(
+                      8 -
+                        (donations.length == 0
+                          ? 0
+                          : donations[colorPagination - 1].length)
+                    )"
+                    :key="index"
+                  >
+                    <md-table-cell></md-table-cell>
+                    <md-table-cell></md-table-cell>
+                    <md-table-cell></md-table-cell>
+                    <md-table-cell></md-table-cell>
+                  </md-table-row>
+                </md-table>
 
-    </md-table>
-
-    <center>
-                <pagination
-                  type="success"
-                  v-model="colorPagination"
-                  :page-count="totalPages"
-                  @input="nextSection">
-                </pagination>
-              </center>  
+                <center>
+                  <pagination
+                    type="success"
+                    v-model="colorPagination"
+                    :page-count="totalPages"
+                    @input="nextSection"
+                  >
+                  </pagination>
+                </center>
               </div>
             </div>
           </div>
@@ -94,8 +120,8 @@
 
 <script>
 import { Tabs } from "@/components";
-import axios from 'axios'
-import {Pagination} from '@/components'
+import axios from "axios";
+import { Pagination } from "@/components";
 
 export default {
   components: {
@@ -109,9 +135,8 @@ export default {
       donations: null,
       colorPagination: 1,
       totalPages: null,
-      indexes: null,
-    }
-   
+      indexes: null
+    };
   },
   props: {
     header: {
@@ -132,39 +157,46 @@ export default {
   },
   methods: {
     getUser: (vueInstance, id) => {
-      axios.get(`http://localhost:8080/user/${id}`)
-      .then((response) =>{
-        
-        vueInstance.$set(vueInstance,"user", response.data)
-        vueInstance.$set(vueInstance,"indexes", response.data.madeDonations)
-        let donations = vueInstance.reorderList(response.data.madeDonations, 0, 8)
-        
-        const pagesTotal = donations.length
-        
-        vueInstance.$set(vueInstance,"donations", donations)
-        vueInstance.$set(vueInstance,"totalPages", Math.round(pagesTotal))
-      }).
-      then(() => console.log(''))
-      .catch((err) => console.log(err))
+      axios
+        .get(`http://localhost:8080/user/${id}`)
+        .then(response => {
+          vueInstance.$set(vueInstance, "user", response.data);
+          vueInstance.$set(vueInstance, "indexes", response.data.madeDonations);
+          let donations = vueInstance.reorderList(
+            response.data.madeDonations,
+            0,
+            8
+          );
+
+          const pagesTotal = donations.length;
+
+          vueInstance.$set(vueInstance, "donations", donations);
+          vueInstance.$set(vueInstance, "totalPages", Math.round(pagesTotal));
+        })
+        .then(() => console.log(""))
+        .catch(err => console.log(err));
     },
-    quantityOfProjectsContribuited: (donations) => {
-        return new Set(donations.map((donation) => donation.projectName)).size
+    quantityOfProjectsContribuited: donations => {
+      return new Set(donations.map(donation => donation.projectName)).size;
     },
     classicModalHide() {
       this.classicModal = false;
     },
-     reorderList(mainList, start = 0, end = 4) {
+    reorderList(mainList, start = 0, end = 4) {
       if (mainList.length == 0) {
-        return mainList
+        return mainList;
+      } else {
+        const res_list = this.reorderList(
+          mainList.slice(end, mainList.length),
+          start,
+          end
+        );
+        return [mainList.slice(start, end)].concat(res_list);
       }
-      else {
-        const res_list = this.reorderList(mainList.slice(end, mainList.length),  start, end)
-        return [mainList.slice(start, end)].concat(res_list)
-      }
-    },
+    }
   },
   created() {
-    this.getUser(this, this.$route.params.id)
+    this.getUser(this, this.$route.params.id);
   }
 };
 </script>
@@ -175,7 +207,7 @@ export default {
 }
 
 .color-section {
-  background-color:#456A85!important;
+  background-color: #456a85 !important;
   padding: 45px;
 }
 
@@ -209,9 +241,9 @@ export default {
     }
   }
   .box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 </style>
